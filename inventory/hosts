@@ -1,0 +1,2 @@
+[vpn_servers]
+debian_vpn_server ansible_host=your_server_ip ansible_user=root

@@ -1,17 +1,21 @@
-port {{ server_port }}
-proto {{ server_protocol }}
+port {{ openvpn_port }}
+proto {{ openvpn_protocol }}
 dev tun
 ca ca.crt
 cert server.crt
-key server.key
-dh dh2048.pem
-server 10.8.0.0 255.255.255.0
+key server.key  # This file should be kept secret
+dh dh.pem
+server {{ openvpn_server_network.split(' ')[0] }} {{ openvpn_server_network.split(' ')[1] }}
 ifconfig-pool-persist ipp.txt
+push "redirect-gateway def1 bypass-dhcp"
+push "dhcp-option DNS 208.67.222.222"
+push "dhcp-option DNS 208.67.220.220"
 keepalive 10 120
-cipher AES-256-CBC
+cipher {{ openvpn_cipher }}
 user nobody
 group nogroup
 persist-key
 persist-tun
 status openvpn-status.log
 verb 3
+explicit-exit-notify 1

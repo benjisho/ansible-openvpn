@@ -1,4 +1,12 @@
----
-# Variables applied to all hosts
+# roles/easy_rsa/vars/main.yml
+easyrsa_country: "US"
+easyrsa_province: "CA"
+easyrsa_city: "San Francisco"
+easyrsa_org: "MyOrg"
+easyrsa_email: "email@example.com"
+easyrsa_ou: "MyOrganizationalUnit"
+
 openvpn_port: 1194
 openvpn_protocol: udp
+client_name: "client01"
+openvpn_server_network: "10.8.0.0 255.255.255.0"
