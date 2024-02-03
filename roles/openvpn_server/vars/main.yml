@@ -1,4 +1,9 @@
----
-# Example variables for OpenVPN server
-server_port: 1194
-server_protocol: udp
+# Example variables for the OpenVPN server
+openvpn_server_network: "10.8.0.0 255.255.255.0"
+openvpn_cipher: "AES-256-CBC"
+
+# Example variable definitions
+openvpn_package_name: openvpn
+package_state: present
+server_conf_template: server.conf.j2
+server_conf_destination: /etc/openvpn/server.conf

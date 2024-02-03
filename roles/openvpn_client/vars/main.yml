@@ -1,5 +1,0 @@
----
-# Example variable for OpenVPN clients
-clients:
-  - client1
-  - client2

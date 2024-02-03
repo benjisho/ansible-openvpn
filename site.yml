@@ -1,0 +1,21 @@
+---
+- hosts: vpn_servers
+  become: true
+
+  # print a message if openvpn is not installed
+  tasks:
+    - name: Print message if openvpn is not installed
+      debug:
+        msg: "OpenVPN is not installed. openvpn_server role will install it."
+      when: openvpn_package_name not in ansible_facts.packages
+  
+  # print a message if easy-rsa is not installed and exit
+    - name: Print message if easy-rsa is not installed
+      debug:
+        msg: "Easy-RSA is not installed. easy_rsa role will install it."
+      when: easy_rsa_package_name not in ansible_facts.packages
+
+  roles:
+    - openvpn_server
+    - easy_rsa
+    - openvpn_client

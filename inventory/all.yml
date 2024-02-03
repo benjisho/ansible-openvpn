@@ -1,6 +1,0 @@
-all:
-  children:
-    vpn_servers:
-      hosts:
-        vpn-server1:
-        vpn-server2:

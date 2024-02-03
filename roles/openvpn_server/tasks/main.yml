@@ -3,35 +3,16 @@
   apt:
     update_cache: yes
 
-- name: Install OpenVPN and Easy-RSA
+- name: Install OpenVPN
   apt:
-    name: "{{ item }}"
-    state: latest
-  loop:
-    - openvpn
-    - easy-rsa
+    name: "{{ openvpn_package_name }}"
+    state: "{{ package_state }}"
+  # conditions of when openvopn is not installed
+  when: ansible_system == "Linux" and openvpn_package_name not in ansible_facts.packages
 
-- name: Setup CA directory
-  command: make-cadir /etc/openvpn/easy-rsa
 
-- name: Build CA
-  command: ./build-ca
-  args:
-    chdir: /etc/openvpn/easy-rsa
-
-- name: Build Server Certificate
-  command: ./build-key-server server
-  args:
-    chdir: /etc/openvpn/easy-rsa
-
-- name: Build Diffie-Hellman key
-  command: ./build-dh
-  args:
-    chdir: /etc/openvpn/easy-rsa
-
-- name: Copy OpenVPN server configuration
+- name: Copy server configuration
   template:
-    src: server.conf.j2
-    dest: /etc/openvpn/server.conf
+    src: "{{ server_conf_template }}"
+    dest: "{{ server_conf_destination }}"
   notify: restart openvpn
-

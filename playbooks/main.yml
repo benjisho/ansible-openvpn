@@ -1,6 +1,0 @@
----
-- hosts: all
-  become: true
-  roles:
-    - openvpn_server
-    - openvpn_client
