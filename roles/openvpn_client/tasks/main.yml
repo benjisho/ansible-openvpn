@@ -1,0 +1,12 @@
+---
+- name: Generate client certificates
+  command: ./build-key {{ item }}
+  args:
+    chdir: /etc/openvpn/easy-rsa
+  loop: "{{ clients }}"
+
+- name: Generate client OVPN files
+  template:
+    src: client.ovpn.j2
+    dest: "/etc/openvpn/client/{{ item }}.ovpn"
+  loop: "{{ clients }}"
