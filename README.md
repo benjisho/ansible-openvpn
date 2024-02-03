@@ -1,5 +1,3 @@
-Below is a sample `README.md` for your Ansible OpenVPN project. This README provides an overview of the project, prerequisites, installation instructions, and usage guidance. You should customize the content to fit your specific project details and requirements.
-
 # Ansible OpenVPN Setup
 
 This project automates the deployment of an OpenVPN server on a Debian-based system using Ansible. It also configures client machines by generating the necessary client configuration files and certificates.
