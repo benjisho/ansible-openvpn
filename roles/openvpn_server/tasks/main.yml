@@ -5,17 +5,14 @@
 
 - name: Install OpenVPN
   apt:
-    name: openvpn
-    state: present
+    name: "{{ openvpn_package_name }}"
+    state: "{{ package_state }}"
+  # conditions of when openvopn is not installed
+  when: ansible_system == "Linux" and openvpn_package_name not in ansible_facts.packages
+
 
 - name: Copy server configuration
   template:
-    src: server.conf.j2
-    dest: /etc/openvpn/server.conf
-  notify: restart openvpn
-
-- name: Copy OpenVPN server configuration
-  template:
-    src: server.conf.j2
-    dest: /etc/openvpn/server.conf
+    src: "{{ server_conf_template }}"
+    dest: "{{ server_conf_destination }}"
   notify: restart openvpn

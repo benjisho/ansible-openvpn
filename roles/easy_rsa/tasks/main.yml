@@ -1,37 +1,37 @@
 ---
 - name: Install Easy-RSA package
   apt:
-    name: easy-rsa
+    name: "{{ easy_rsa_package_name }}"
     state: present
   when: ansible_system == "Linux"
 
 - name: Copy the Easy-RSA files to the OpenVPN directory
   copy:
-    src: "/usr/share/easy-rsa/"
-    dest: "/etc/openvpn/easy-rsa"
+    src: "{{ easy_rsa_source_dir }}/"
+    dest: "{{ easy_rsa_destination_dir }}"
     remote_src: yes
 
 - name: Initialize the PKI
-  command: ./easyrsa init-pki
+  command: "./easyrsa init-pki"
   args:
-    chdir: "/etc/openvpn/easy-rsa"
+    chdir: "{{ easy_rsa_destination_dir }}"
 
 - name: Build the CA certificate
-  command: ./easyrsa build-ca nopass
+  command: "./easyrsa build-ca nopass"
   args:
-    chdir: "/etc/openvpn/easy-rsa"
+    chdir: "{{ easy_rsa_destination_dir }}"
 
 - name: Generate the server certificate and key
-  command: ./easyrsa build-server-full server nopass
+  command: "./easyrsa build-server-full server nopass"
   args:
-    chdir: "/etc/openvpn/easy-rsa"
+    chdir: "{{ easy_rsa_destination_dir }}"
 
 - name: Generate the Diffie-Hellman parameters
-  command: ./easyrsa gen-dh
+  command: "./easyrsa gen-dh"
   args:
-    chdir: "/etc/openvpn/easy-rsa"
+    chdir: "{{ easy_rsa_destination_dir }}"
 
 - name: Generate TLS-Auth key
-  command: openvpn --genkey --secret ta.key
+  command: "openvpn --genkey --secret ta.key"
   args:
-    chdir: "/etc/openvpn/easy-rsa"
+    chdir: "{{ easy_rsa_destination_dir }}"
