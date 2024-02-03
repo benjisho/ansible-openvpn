@@ -29,8 +29,9 @@
   args:
     chdir: /etc/openvpn/easy-rsa
 
-- name: Copy server.conf
+- name: Copy OpenVPN server configuration
   template:
     src: server.conf.j2
     dest: /etc/openvpn/server.conf
   notify: restart openvpn
+

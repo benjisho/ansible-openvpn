@@ -1,0 +1,4 @@
+---
+# Variables specific to vpn-server1
+server_public_ip: "public-ip-of-vpn-server1"
+server_private_subnet: "10.8.0.0 255.255.255.0"
